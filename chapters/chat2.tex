@@ -1,0 +1,864 @@
+% \begin{remark}
+%  This work is published in the proceedings of COLT 2020. It was also presented as poster at the MLSS 2020 and DS3 2020 summer schools, where it won a best-poster award. 
+%  \end{remark}
+
+% The work presented in this chapter is based on a paper that has been published as: \bibentry{ExamplePub}. 
+
+% Use \bibentry{} to get the reference details of the publication or \citet{} for a normal citation. 
+
+% \newpage
+
+\section*{Abstract}
+[Abstract]
+%% Place abstract here, and remove the \abstract commands
+
+% \section{Introduction}
+%% Place the rest of the boby of the paper here.
+
+%% Remove the call to references if you just want them at the end of your thesis, as well as all potential extra submission details (for example checklists).
+
+
+
+
+\section{$SU(2) \otimes SU(2)$}
+
+Our system consists of two qubit, therefore, it possesses $SU(2) \otimes SU(2)$ symmetry. 
+Let me choose $\{\Gamma^{ij}\}_{i, j =0}^{3}$ as an orthogonal representation basis set 
+such that $\trace{\left( { \Gamma^{ij}}^{\dagger} \Gamma^{mn} \right)} = \delta_{(ij)(mn)}$.
+We can choose $\Gamma^{ij} = \sigma^{i} \otimes \sigma^{j}$. It is convinient in that they are traceless excpet for $\Gamma^{00}$.
+See Appendix \ref{section:Gamma} how $\Gamma^{ij}$ look like.
+
+$\{\Gamma^{ij}\}$ possesses some interesting properties. 
+First, the product between $\Gamma^{ij}$ and $\Gamma^{mn}$ is given by 
+\begin{align}
+    \Gamma^{ij}\Gamma^{mn}  &= (\sigma^{i} \otimes \sigma^{j}) \otimes (\sigma^{m} \otimes \sigma^{n}) \nonumber \\ 
+                            &= (\sigma^{i} \sigma^{m}) \otimes (\sigma^{j} \otimes \sigma^{n}) \nonumber \\
+                            &= (\delta^{im} + i \epsilon_{imk} \sigma^{k}) \otimes (\delta_{jn} + i \epsilon_{jnl} \sigma^{l}) \nonumber \\
+                            &= \delta_{im}\delta_{jn} + i \delta_{im}\epsilon_{jnl}\sigma^{l} + i \delta^{jn} \epsilon_{imk}\sigma^{k} - \epsilon_{imk}\epsilon_{jnl}\sigma^{k}\sigma^{l}  
+\end{align}
+Note that I supposed that $i,j,m,n \neq 0$ and didn't write $\otimes$ explicitly at the end of equation. 
+And you don't have to pay attention to the upper/lower indecies.
+In a same way, we have
+\begin{align}
+    \Gamma^{jn}\Gamma^{ij}  &= \delta_{im}\delta_{jn} - i \delta_{im}\epsilon_{jnl}\sigma^{l} - i \delta^{jn} \epsilon_{imk}\sigma^{k} - \epsilon_{imk}\epsilon_{jnl}\sigma^{k}\sigma^{l}  
+\end{align}
+in component form. Or more conviniently, 
+\begin{align}
+    \Gamma^{jn}\Gamma^{ij}  &= (\sigma^{m} \otimes \sigma^{n}) \otimes (\sigma^{m} \otimes \sigma^{n}) \nonumber \\ 
+                            &= - (\sigma^{i} \sigma^{m} -2 \delta_{im}) \otimes (\sigma^{n}\sigma^{j}) \nonumber \\
+                            &= - (\sigma^{i} \sigma^{m} ) \otimes (\sigma^{n} \sigma^{j} ) + 2 \delta_{im} \otimes \sigma^{n} \sigma^{j} \\  
+                            &= (\sigma^{i} \sigma^{m} - 2i \epsilon_{mik} \sigma^{k}) \otimes (\sigma^{n}\sigma^{j}) \nonumber \\
+                            &= (\sigma^{i} \sigma^{m} ) \otimes (\sigma^{n} \sigma^{j} ) - 2 i \epsilon_{mik} \sigma^{k} \otimes \sigma^{n} \sigma^{j}. 
+\end{align}
+Therefore, the commutator relation and the anticommutator relation are given by
+\begin{align}
+    \left[ \Gamma^{ij}, \Gamma^{mn} \right] &= (\sigma^{i}\sigma^{m}) \otimes \left\{ \sigma^{j}, \sigma^{n} \right\} - 2 \delta_{im} \otimes \sigma^{n}\sigma^{j} \\
+                                            &= (\sigma^{i}\sigma^{m}) \otimes \left[ \sigma^{j}, \sigma^{n} \right] + 2i \epsilon_{mik} \sigma^{k} \otimes \sigma^{n}\sigma^{j} \\
+                                            &= 2i \delta_{im}\epsilon_{jnl} \sigma^{l} + 2i \delta_{jn}\epsilon_{imk} \sigma^{k} 
+\end{align}
+\begin{align}
+    \left\{ \Gamma^{ij}, \Gamma^{mn} \right\} &= (\sigma^{i}\sigma^{m}) \otimes \left[ \sigma^{j}, \sigma^{n} \right] + 2 \delta_{im} \otimes \sigma^{n}\sigma^{j} \\
+                                            &= (\sigma^{i}\sigma^{m}) \otimes \left\{ \sigma^{j}, \sigma^{n} \right\} - 2i \epsilon_{mik} \sigma^{k} \otimes \sigma^{n}\sigma^{j} \\
+                                            &= 2 \delta_{im}\delta_{jn} - 2\epsilon_{imk}\epsilon_{jnl}\sigma^{k}\sigma^{l}
+\end{align}
+If one of the elements is zero, i.e. $i=0$, then,
+\begin{align}
+    \Gamma^{0j}\Gamma^{mn}  &= (\sigma^{0} \otimes \sigma^{j}) \otimes (\sigma^{m} \otimes \sigma^{n}) \nonumber \\ 
+                            &= (\sigma^{0} \sigma^{m}) \otimes (\sigma^{j} \otimes \sigma^{n}) \nonumber \\
+                            &= \sigma^{m} \otimes \delta_{jn} + i \sigma^{m} \otimes \epsilon_{jnl}\sigma^{l} 
+\end{align}
+and the commutator relation and the anticommutator relation are given by
+\begin{align}
+    \left[ \Gamma^{0j}, \Gamma^{mn} \right] &= -2 i  \sigma^{m} \otimes  \epsilon_{njk} \sigma^{k} 
+\end{align}
+\begin{align}
+    \left\{ \Gamma^{0j}, \Gamma^{mn} \right\} &=  2 \sigma^{m} \otimes \delta_{jn} 
+\end{align}
+If two of the elements are zero, i.e. $i=j=0$ or $i=m=0$, then,
+\begin{align}
+    \Gamma^{00}\Gamma^{mn}  &= (\sigma^{m}) \otimes (\sigma^{n}) \nonumber \\
+                            &= \Gamma^{mn} \nonumber \\
+                            &=  \Gamma^{mn}\Gamma^{00} \nonumber
+\end{align}
+And obviously, 
+\begin{align}
+    \left[ \Gamma^{00}, \Gamma^{mn} \right] &= 0
+\end{align}
+\begin{align}
+    \left\{ \Gamma^{00}, \Gamma^{mn} \right\} &=  \Gamma^{mn}
+\end{align}
+On the other hand,
+\begin{align}
+    \Gamma^{0j}\Gamma^{0n}  &= \sigma^{0} \otimes (\sigma^{j}\sigma^{n}) \nonumber
+\end{align}
+and
+\begin{align}
+    \left[ \Gamma^{0j}, \Gamma^{0n} \right] &= \sigma^{0} \otimes 2i \epsilon_{njk} \sigma^{k}
+\end{align}
+\begin{align}
+    \left\{ \Gamma^{0j}, \Gamma^{0n} \right\} &= \sigma^{0} \otimes 2\delta_{nj}
+\end{align}
+Therefore, $\{\Gamma^{ij} \}$ constructs an orthogonal representation basis. Considering the property of trace, $\trace{A \otimes B} = \trace{A} \times \trace{B}$, we have
+\begin{align}
+    \trace{\left( { \Gamma^{ij}} \Gamma^{mn} \right)} = 4 \delta_{im}\delta_{jn}. 
+    \label{eqn:tracelessProperty}
+\end{align}
+Note that here $\dagger$ is removed. The hermitivity of ${\Gamma^{ij}}$ is guranteed by the hermitivity of pauli matrices.
+
+It has been recently notice that $SU(2) \otimes SU(2)$ is actually $SO(1,3)$, which is familiar in the special relativity. 
+It seems possible to use generaters in $SO(1,3)$ to represent the system. This study is undergoing.
+
+\section{Measurement basis}
+
+\subsection{Bell basis measurement}
+\subsection{POVM basis ${\Omega^{i}}$}
+Given system is a two-qubit system with $\sigma^{3} \otimes \sigma^{3}$ interaction and the projection measurement is performed with POVM basis. 
+See Appendix B \Ref{label:POVM_basis}.
+There are well-calculated 29 POVM operators. Since the rank of the set of such basis is 16, it is assumed that the set of POVM operators can be reduced. 
+There are some numerous possible combinations, but it is presumed that there are about 1,600 possible combinations to conduct QST. 
+
+Absolutly, POVM operators can be represented in a linear combination of the representation basis $\{\Gamma^{ij}\}$.
+\begin{align}
+    \Omega^{k} = \theta_{ij}^{k} \Gamma^{ij}
+\end{align}
+Using the property discussed above \ref{eqn:tracelessProperty}, $\theta_{ij}^{k}$ is given by
+\begin{align}
+    \theta_{ij}^{k} = \frac{1}{4} \trace{\left(\Omega^{k} \Gamma^{ij}\right)}
+\end{align}
+In this manner, we find $\theta_{ij}^{k}$. See the table \ref{table:theta}.
+\begin{tiny}
+    \begin{table}[]
+        \label{table:theta}
+        \begin{tabular}{lllllllllllllllll}
+                         & $\Gamma^{00}$	&	$\Gamma^{01}$	&	$\Gamma^{02}$	&	$\Gamma^{03}$	&	$\Gamma^{10}$	&	$\Gamma^{11}$	&	$\Gamma^{12}$	&	$\Gamma^{13}$	&	$\Gamma^{20}$	&	$\Gamma^{21}$	&	$\Gamma^{22}$	&	$\Gamma^{23}$	&	$\Gamma^{30}$	&	$\Gamma^{31}$	&	$\Gamma^{32}$	&	$\Gamma^{33}$ \\ 
+            $\Omega^{1}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega^{2}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega^{3}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega^{4}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega^{5}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega^{6}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega^{7}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega^{8}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega^{9}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega^{10}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega^{11}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0 \\ 
+            $\Omega^{12}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0 \\ 
+            $\Omega^{13}$ & $\frac{1}{2}$	&	0	&	0	&	$-\frac{1}{4}$	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega^{14}$ & $\frac{1}{2}$	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega^{15}$ & $\frac{1}{2}$	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0 \\ 
+            $\Omega^{16}$ & $\frac{1}{2}$	&	0	&	$\frac{1}{4}$	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega^{17}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0 \\ 
+            $\Omega^{18}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0 \\ 
+            $\Omega^{19}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0 \\ 
+            $\Omega^{20}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0 \\ 
+            $\Omega^{21}$ & $\frac{1}{2}$	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega^{22}$ & $\frac{1}{2}$	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega^{23}$ & $\frac{1}{2}$	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0 \\ 
+            $\Omega^{24}$ & $\frac{1}{2}$	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0 \\ 
+            $\Omega^{25}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$ \\ 
+            $\Omega^{26}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$ \\ 
+            $\Omega^{27}$ & $\frac{1}{2}$	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0 \\ 
+            $\Omega^{28}$ & $\frac{1}{2}$	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0 \\ 
+            $\Omega^{29}$ & $\frac{1}{2}$	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	$-\frac{1}{4}$	&	0	&	0	&	0 \\ 
+        \end{tabular}
+        \caption{The elements of $\theta_{ij}^{k}$}
+        \end{table}
+\end{tiny}
+\begin{tiny}
+    \begin{table}[]
+        \label{table:theta}
+        \begin{tabular}{lllllllllllllllll}
+                            & $\Gamma^{00}$	&	$\Gamma^{01}$	&	$\Gamma^{02}$	&	$\Gamma^{03}$	&	$\Gamma^{10}$	&	$\Gamma^{11}$	&	$\Gamma^{12}$	&	$\Gamma^{13}$	&	$\Gamma^{20}$	&	$\Gamma^{21}$	&	$\Gamma^{22}$	&	$\Gamma^{23}$	&	$\Gamma^{30}$	&	$\Gamma^{31}$	&	$\Gamma^{32}$	&	$\Gamma^{33}$ \\ 
+            $\Omega_{1}^{1}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	-$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{2}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	-$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{3}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{4}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	0	&	-$\frac{1}{4}$	&	0	&	0	&	-$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{5}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	-$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	-$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{6}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{7}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	-$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{8}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	0	&	-$\frac{1}{4}$	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{9}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	0	&	0	&	-$\frac{1}{4}$	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{10}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{11}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	0	&	-$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	-$\frac{1}{4}$	&	0	&	0 \\ 
+            $\Omega_{1}^{12}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	0	&	-$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0 \\ 
+            $\Omega_{1}^{13}$ & $\frac{1}{2}$	&	0	&	0	&	$\frac{1}{4}$	&	-$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{14}$ & $\frac{1}{2}$	&	-$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{15}$ & $\frac{1}{2}$	&	-$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{16}$ & $\frac{1}{2}$	&	0	&	-$\frac{1}{4}$	&	0	&	-$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{17}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	-$\frac{1}{4}$	&	0	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{18}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{19}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	-$\frac{1}{4}$	&	0 \\ 
+            $\Omega_{1}^{20}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0 \\ 
+            $\Omega_{1}^{21}$ & $\frac{1}{2}$	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	-$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{22}$ & $\frac{1}{2}$	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{23}$ & $\frac{1}{2}$	&	0	&	-$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{24}$ & $\frac{1}{2}$	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{25}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	-$\frac{1}{4}$ \\ 
+            $\Omega_{1}^{26}$ & $\frac{1}{2}$	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$ \\ 
+            $\Omega_{1}^{27}$ & $\frac{1}{2}$	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	-$\frac{1}{4}$	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{28}$ & $\frac{1}{2}$	&	0	&	0	&	-$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0 \\ 
+            $\Omega_{1}^{29}$ & $\frac{1}{2}$	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	$\frac{1}{4}$	&	0	&	0	&	0 \\ 
+                         
+        \end{tabular}
+        \caption{The elements of $\theta_{ij}^{k}$}
+        \end{table}
+\end{tiny}
+For example, the first POVM basis $\Omega^{1}$ is given by
+\begin{align*}
+    \Omega^{1} &= \frac{1}{4} \Gamma^{00} + \frac{1}{4}\Gamma^{11} - \frac{1}{4} \Gamma^{22}  \\
+    &= 
+    \frac{1}{2}
+    \begin{pmatrix}
+        1&0&0&0\\
+        0&1&0&0\\
+        0&0&1&0\\
+        0&0&0&1
+    \end{pmatrix}
+    +
+    \frac{1}{4}
+    \begin{pmatrix}
+        0&0&0&1\\
+        0&0&1&0\\
+        0&1&0&0\\
+        1&0&0&0
+    \end{pmatrix}
+    -
+    \frac{1}{4}
+    \begin{pmatrix}
+        0&0&0&-1\\
+        0&0&1&0\\
+        0&1&0&0\\
+        -1&0&0&0
+    \end{pmatrix}
+    \\
+    &=
+    \begin{pmatrix}
+        \frac{1}{2} &0&0& \frac{1}{2} \\
+        0&\frac{1}{2}&0&0 \\
+        0&0&\frac{1}{2}&0 \\
+        \frac{1}{2} &0&0& \frac{1}{2}
+    \end{pmatrix}
+\end{align*}
+Interestingly, all the $\Omega^{k}$ consists of three $\Gamma^{ij}$. And one is always $\Gamma^{00}$.
+
+It is presumed that the sets consisting of the selected 16 POVM operations, which conduct QST well, may have almost the same amount of $\Gamma^{ij}$. That is, the sum of square of coefficient would be same or similar for all $\Gamma^{ij}$ excpet for $\Gamma^{00}$.
+However, it does not. For example, in a possible POVM basis $\{\Omega^1 , \Omega^2 , \Omega^3 , \Omega^7 , \Omega^9 ,\Omega^{11} ,\Omega^{13} ,\Omega^{14} ,\Omega^{16} ,\Omega^{18} ,\Omega^{19} ,\Omega^{20} ,\Omega^{21} ,\Omega^{22},\Omega^{26} ,\Omega^{29} \}$, $\Omega^{1}$, $\Omega^2$ ,$\Omega^{18}$, $\Omega^{19}$, $\Omega^{20}$, $\Omega^{26} $ consists of $\Gamma^{11}$, while only $\Omega^{14}$ consists of $\Gamma^{01}$.
+The sum of square of coefficient for $\Gamma^{11}$ is $\frac{3}{8}$, while the sum of square of coefficient for $\Gamma^{01}$ is $\frac{1}{16}$.
+
+Nevertheless, all the $\Gamma^{ij}$ are included in the set of POVM basis. 
+All the selected POVM  sets include all the elements of $\{\Gamma^{ij}\}$.
+
+\newpage
+\section*{Appendix A : Representation basis $\Gamma^{ij}$}
+\label{section:Gamma}
+\begin{align*}
+    \Gamma^{00} = 
+    \begin{pmatrix}
+    1  &  0  &  0  &  0  \\
+    0  &  1  &  0  &  0  \\
+    0  &  0  &  1  &  0  \\
+    0  &  0  &  0  &  1  \\
+    \end{pmatrix}
+    &&
+    \Gamma^{01} = 
+    \begin{pmatrix}
+    0  &  1  &  0  &  0  \\
+    1  &  0  &  0  &  0  \\
+    0  &  0  &  0  &  1  \\
+    0  &  0  &  1  &  0  \\
+    \end{pmatrix}
+    \\
+    \Gamma^{02} = 
+    \begin{pmatrix}
+    0  &  -i  &  0  &  0  \\
+    i  &  0  &  0  &  0  \\
+    0  &  0  &  0  &  -i  \\
+    0  &  0  &  i  &  0  \\
+    \end{pmatrix}
+    &&
+    \Gamma^{03} = 
+    \begin{pmatrix}
+    1  &  0  &  0  &  0  \\
+    0  &  -1  &  0  &  0  \\
+    0  &  0  &  1  &  0  \\
+    0  &  0  &  0  &  -1  \\
+    \end{pmatrix}
+    \\
+    \Gamma^{10} = 
+    \begin{pmatrix}
+    0  &  0  &  1  &  0  \\
+    0  &  0  &  0  &  1  \\
+    1  &  0  &  0  &  0  \\
+    0  &  1  &  0  &  0  \\
+    \end{pmatrix}
+    &&
+    \Gamma^{11} = 
+    \begin{pmatrix}
+    0  &  0  &  0  &  1  \\
+    0  &  0  &  1  &  0  \\
+    0  &  1  &  0  &  0  \\
+    1  &  0  &  0  &  0  \\
+    \end{pmatrix}
+    \\
+    \Gamma^{12} = 
+    \begin{pmatrix}
+    0  &  0  &  0  &  -i  \\
+    0  &  0  &  i  &  0  \\
+    0  &  -i  &  0  &  0  \\
+    i  &  0  &  0  &  0  \\
+    \end{pmatrix}
+    &&
+    \Gamma^{13} = 
+    \begin{pmatrix}
+    0  &  0  &  1  &  0  \\
+    0  &  0  &  0  &  -1  \\
+    1  &  0  &  0  &  0  \\
+    0  &  -1  &  0  &  0  \\
+    \end{pmatrix}
+    \\
+    \Gamma^{20} = 
+    \begin{pmatrix}
+    0  &  0  &  -i  &  0  \\
+    0  &  0  &  0  &  -i  \\
+    i  &  0  &  0  &  0  \\
+    0  &  i  &  0  &  0  \\
+    \end{pmatrix}
+    &&
+    \Gamma^{21} = 
+    \begin{pmatrix}
+    0  &  0  &  0  &  -i  \\
+    0  &  0  &  -i  &  0  \\
+    0  &  i  &  0  &  0  \\
+    i  &  0  &  0  &  0  \\
+    \end{pmatrix}
+    \\
+    \Gamma^{22} = 
+    \begin{pmatrix}
+    0  &  0  &  0  &  -1  \\
+    0  &  0  &  1  &  0  \\
+    0  &  1  &  0  &  0  \\
+    -1  &  0  &  0  &  0  \\
+    \end{pmatrix}
+    &&
+    \Gamma^{23} = 
+    \begin{pmatrix}
+    0  &  0  &  -i  &  0  \\
+    0  &  0  &  0  &  i  \\
+    i  &  0  &  0  &  0  \\
+    0  &  -i  &  0  &  0  \\
+    \end{pmatrix}
+    \\
+    \Gamma^{30} = 
+    \begin{pmatrix}
+    1  &  0  &  0  &  0  \\
+    0  &  1  &  0  &  0  \\
+    0  &  0  &  -1  &  0  \\
+    0  &  0  &  0  &  -1  \\
+    \end{pmatrix}
+    &&
+    \Gamma^{31} = 
+    \begin{pmatrix}
+    0  &  1  &  0  &  0  \\
+    1  &  0  &  0  &  0  \\
+    0  &  0  &  0  &  -1  \\
+    0  &  0  &  -1  &  0  \\
+    \end{pmatrix}
+    \\
+    \Gamma^{32} = 
+    \begin{pmatrix}
+    0  &  -i  &  0  &  0  \\
+    i  &  0  &  0  &  0  \\
+    0  &  0  &  0  &  i  \\
+    0  &  0  &  -i  &  0  \\
+    \end{pmatrix}
+    &&
+    \Gamma^{33} = 
+    \begin{pmatrix}
+    1  &  0  &  0  &  0  \\
+    0  &  -1  &  0  &  0  \\
+    0  &  0  &  -1  &  0  \\
+    0  &  0  &  0  &  1  \\
+    \end{pmatrix}
+\end{align*}
+
+\newpage
+\section*{Appendix B : POVM basis $\Omega^{ij}$}
+\label{label:POVM_basis}
+\begin{align*}
+    \Omega_{0}^{1} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  \frac{1}{2}  \\
+    0  &  \frac{1}{2}  &  0  &  0  \\
+    0  &  0  &  \frac{1}{2}  &  0  \\
+    \frac{1}{2}  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{0}^{2} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  -\frac{1}{2}  \\
+    0  &  \frac{1}{2}  &  0  &  0  \\
+    0  &  0  &  \frac{1}{2}  &  0  \\
+    -\frac{1}{2}  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{0}^{3} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  \frac{1}{2}i  \\
+    0  &  \frac{1}{2}  &  0  &  0  \\
+    0  &  0  &  \frac{1}{2}  &  0  \\
+    -\frac{1}{2}i  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{0}^{4} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  -\frac{1}{2}i  \\
+    0  &  \frac{1}{2}  &  0  &  0  \\
+    0  &  0  &  \frac{1}{2}  &  0  \\
+    \frac{1}{2}i  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{0}^{5} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  0  \\
+    0  &  \frac{1}{2}  &  \frac{1}{2}  &  0  \\
+    0  &  \frac{1}{2}  &  \frac{1}{2}  &  0  \\
+    0  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{0}^{6} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  0  \\
+    0  &  \frac{1}{2}  &  -\frac{1}{2}  &  0  \\
+    0  &  -\frac{1}{2}  &  \frac{1}{2}  &  0  \\
+    0  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{0}^{7} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  0  \\
+    0  &  \frac{1}{2}  &  -\frac{1}{2}i  &  0  \\
+    0  &  \frac{1}{2}i  &  \frac{1}{2}  &  0  \\
+    0  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{0}^{8} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  0  \\
+    0  &  \frac{1}{2}  &  \frac{1}{2}i  &  0  \\
+    0  &  -\frac{1}{2}i  &  \frac{1}{2}  &  0  \\
+    0  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{0}^{9} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  \frac{1}{4}  &  \frac{1}{4}i  \\
+    0  &  \frac{1}{2}  &  \frac{1}{4}i  &  -\frac{1}{4}  \\
+    \frac{1}{4}  &  -\frac{1}{4}i  &  \frac{1}{2}  &  0  \\
+    -\frac{1}{4}i  &  -\frac{1}{4}  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{0}^{10} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  -\frac{1}{4}  &  \frac{1}{4}i  \\
+    0  &  \frac{1}{2}  &  \frac{1}{4}i  &  \frac{1}{4}  \\
+    -\frac{1}{4}  &  -\frac{1}{4}i  &  \frac{1}{2}  &  0  \\
+    -\frac{1}{4}i  &  \frac{1}{4}  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{0}^{11} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  \frac{1}{4}  &  0  &  -\frac{1}{4}i  \\
+    \frac{1}{4}  &  \frac{1}{2}  &  \frac{1}{4}i  &  0  \\
+    0  &  -\frac{1}{4}i  &  \frac{1}{2}  &  -\frac{1}{4}  \\
+    \frac{1}{4}i  &  0  &  -\frac{1}{4}  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{0}^{12} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  -\frac{1}{4}  &  0  &  -\frac{1}{4}i  \\
+    -\frac{1}{4}  &  \frac{1}{2}  &  \frac{1}{4}i  &  0  \\
+    0  &  -\frac{1}{4}i  &  \frac{1}{2}  &  \frac{1}{4}  \\
+    \frac{1}{4}i  &  0  &  \frac{1}{4}  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{0}^{13} = 
+    \begin{pmatrix}
+    \frac{1}{4}  &  0  &  \frac{1}{4}  &  0  \\
+    0  &  \frac{3}{4}  &  0  &  \frac{1}{4}  \\
+    \frac{1}{4}  &  0  &  \frac{1}{4}  &  0  \\
+    0  &  \frac{1}{4}  &  0  &  \frac{3}{4}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{0}^{14} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  \frac{1}{4}  &  \frac{1}{4}i  &  0  \\
+    \frac{1}{4}  &  \frac{1}{2}  &  0  &  \frac{1}{4}i  \\
+    -\frac{1}{4}i  &  0  &  \frac{1}{2}  &  \frac{1}{4}  \\
+    0  &  -\frac{1}{4}i  &  \frac{1}{4}  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{0}^{15} = 
+    \begin{pmatrix}
+    \frac{1}{4}  &  \frac{1}{4}  &  0  &  0  \\
+    \frac{1}{4}  &  \frac{1}{4}  &  0  &  0  \\
+    0  &  0  &  \frac{3}{4}  &  \frac{1}{4}  \\
+    0  &  0  &  \frac{1}{4}  &  \frac{3}{4}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{0}^{16} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  -\frac{1}{4}i  &  \frac{1}{4}  &  0  \\
+    \frac{1}{4}i  &  \frac{1}{2}  &  0  &  \frac{1}{4}  \\
+    \frac{1}{4}  &  0  &  \frac{1}{2}  &  -\frac{1}{4}i  \\
+    0  &  \frac{1}{4}  &  \frac{1}{4}i  &  \frac{1}{2}  \\
+    \end{pmatrix}
+\end{align*}
+
+\newpage
+\begin{align*}
+    \Omega_{0}^{17} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  -\frac{1}{4}i  &  -\frac{1}{4}  \\
+    0  &  \frac{1}{2}  &  -\frac{1}{4}  &  \frac{1}{4}i  \\
+    \frac{1}{4}i  &  -\frac{1}{4}  &  \frac{1}{2}  &  0  \\
+    -\frac{1}{4}  &  -\frac{1}{4}i  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{0}^{18} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  \frac{1}{4}i  &  -\frac{1}{4}  \\
+    0  &  \frac{1}{2}  &  -\frac{1}{4}  &  -\frac{1}{4}i  \\
+    -\frac{1}{4}i  &  -\frac{1}{4}  &  \frac{1}{2}  &  0  \\
+    -\frac{1}{4}  &  \frac{1}{4}i  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{0}^{19} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  -\frac{1}{4}i  &  0  &  -\frac{1}{4}  \\
+    \frac{1}{4}i  &  \frac{1}{2}  &  -\frac{1}{4}  &  0  \\
+    0  &  -\frac{1}{4}  &  \frac{1}{2}  &  \frac{1}{4}i  \\
+    -\frac{1}{4}  &  0  &  -\frac{1}{4}i  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{0}^{20} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  \frac{1}{4}i  &  0  &  -\frac{1}{4}  \\
+    -\frac{1}{4}i  &  \frac{1}{2}  &  -\frac{1}{4}  &  0  \\
+    0  &  -\frac{1}{4}  &  \frac{1}{2}  &  -\frac{1}{4}i  \\
+    -\frac{1}{4}  &  0  &  \frac{1}{4}i  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{0}^{21} = 
+    \begin{pmatrix}
+    \frac{1}{4}  &  0  &  -\frac{1}{4}i  &  0  \\
+    0  &  \frac{3}{4}  &  0  &  -\frac{1}{4}i  \\
+    \frac{1}{4}i  &  0  &  \frac{1}{4}  &  0  \\
+    0  &  \frac{1}{4}i  &  0  &  \frac{3}{4}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{0}^{22} = 
+    \begin{pmatrix}
+    \frac{1}{4}  &  0  &  \frac{1}{4}i  &  0  \\
+    0  &  \frac{3}{4}  &  0  &  \frac{1}{4}i  \\
+    -\frac{1}{4}i  &  0  &  \frac{1}{4}  &  0  \\
+    0  &  -\frac{1}{4}i  &  0  &  \frac{3}{4}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{0}^{23} = 
+    \begin{pmatrix}
+    \frac{1}{4}  &  -\frac{1}{4}i  &  0  &  0  \\
+    \frac{1}{4}i  &  \frac{1}{4}  &  0  &  0  \\
+    0  &  0  &  \frac{3}{4}  &  -\frac{1}{4}i  \\
+    0  &  0  &  \frac{1}{4}i  &  \frac{3}{4}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{0}^{24} = 
+    \begin{pmatrix}
+    \frac{1}{4}  &  \frac{1}{4}i  &  0  &  0  \\
+    -\frac{1}{4}i  &  \frac{1}{4}  &  0  &  0  \\
+    0  &  0  &  \frac{3}{4}  &  \frac{1}{4}i  \\
+    0  &  0  &  -\frac{1}{4}i  &  \frac{3}{4}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{0}^{25} = 
+    \begin{pmatrix}
+    \frac{3}{4}  &  0  &  0  &  -\frac{1}{4}  \\
+    0  &  \frac{1}{4}  &  -\frac{1}{4}  &  0  \\
+    0  &  -\frac{1}{4}  &  \frac{1}{4}  &  0  \\
+    -\frac{1}{4}  &  0  &  0  &  \frac{3}{4}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{0}^{26} = 
+    \begin{pmatrix}
+    \frac{1}{4}  &  0  &  0  &  -\frac{1}{4}  \\
+    0  &  \frac{3}{4}  &  -\frac{1}{4}  &  0  \\
+    0  &  -\frac{1}{4}  &  \frac{3}{4}  &  0  \\
+    -\frac{1}{4}  &  0  &  0  &  \frac{1}{4}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{0}^{27} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  0  \\
+    0  &  1  &  0  &  0  \\
+    0  &  0  &  0  &  0  \\
+    0  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{0}^{28} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  0  \\
+    0  &  0  &  0  &  0  \\
+    0  &  0  &  1  &  0  \\
+    0  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{0}^{29} = 
+    \begin{pmatrix}
+    0  &  0  &  0  &  0  \\
+    0  &  \frac{1}{2}  &  0  &  0  \\
+    0  &  0  &  \frac{1}{2}  &  0  \\
+    0  &  0  &  0  &  1  \\
+    \end{pmatrix}
+    &
+\end{align*}
+
+\newpage
+
+\begin{align*}
+    \Omega_{1}^{1} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  -\frac{1}{2}  \\
+    0  &  \frac{1}{2}  &  0  &  0  \\
+    0  &  0  &  \frac{1}{2}  &  0  \\
+    -\frac{1}{2}  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{1}^{2} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  \frac{1}{2}  \\
+    0  &  \frac{1}{2}  &  0  &  0  \\
+    0  &  0  &  \frac{1}{2}  &  0  \\
+    \frac{1}{2}  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{1}^{3} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  -\frac{1}{2}i  \\
+    0  &  \frac{1}{2}  &  0  &  0  \\
+    0  &  0  &  \frac{1}{2}  &  0  \\
+    \frac{1}{2}i  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{1}^{4} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  \frac{1}{2}i  \\
+    0  &  \frac{1}{2}  &  0  &  0  \\
+    0  &  0  &  \frac{1}{2}  &  0  \\
+    -\frac{1}{2}i  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{1}^{5} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  0  \\
+    0  &  \frac{1}{2}  &  -\frac{1}{2}  &  0  \\
+    0  &  -\frac{1}{2}  &  \frac{1}{2}  &  0  \\
+    0  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{1}^{6} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  0  \\
+    0  &  \frac{1}{2}  &  \frac{1}{2}  &  0  \\
+    0  &  \frac{1}{2}  &  \frac{1}{2}  &  0  \\
+    0  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{1}^{7} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  0  \\
+    0  &  \frac{1}{2}  &  \frac{1}{2}i  &  0  \\
+    0  &  -\frac{1}{2}i  &  \frac{1}{2}  &  0  \\
+    0  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{1}^{8} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  0  \\
+    0  &  \frac{1}{2}  &  -\frac{1}{2}i  &  0  \\
+    0  &  \frac{1}{2}i  &  \frac{1}{2}  &  0  \\
+    0  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{1}^{9} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  -\frac{1}{4}  &  -\frac{1}{4}i  \\
+    0  &  \frac{1}{2}  &  -\frac{1}{4}i  &  \frac{1}{4}  \\
+    -\frac{1}{4}  &  \frac{1}{4}i  &  \frac{1}{2}  &  0  \\
+    \frac{1}{4}i  &  \frac{1}{4}  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{1}^{10} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  \frac{1}{4}  &  -\frac{1}{4}i  \\
+    0  &  \frac{1}{2}  &  -\frac{1}{4}i  &  -\frac{1}{4}  \\
+    \frac{1}{4}  &  \frac{1}{4}i  &  \frac{1}{2}  &  0  \\
+    \frac{1}{4}i  &  -\frac{1}{4}  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{1}^{11} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  -\frac{1}{4}  &  0  &  \frac{1}{4}i  \\
+    -\frac{1}{4}  &  \frac{1}{2}  &  -\frac{1}{4}i  &  0  \\
+    0  &  \frac{1}{4}i  &  \frac{1}{2}  &  \frac{1}{4}  \\
+    -\frac{1}{4}i  &  0  &  \frac{1}{4}  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{1}^{12} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  \frac{1}{4}  &  0  &  \frac{1}{4}i  \\
+    \frac{1}{4}  &  \frac{1}{2}  &  -\frac{1}{4}i  &  0  \\
+    0  &  \frac{1}{4}i  &  \frac{1}{2}  &  -\frac{1}{4}  \\
+    -\frac{1}{4}i  &  0  &  -\frac{1}{4}  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{1}^{13} = 
+    \begin{pmatrix}
+    \frac{3}{4}  &  0  &  -\frac{1}{4}  &  0  \\
+    0  &  \frac{1}{4}  &  0  &  -\frac{1}{4}  \\
+    -\frac{1}{4}  &  0  &  \frac{3}{4}  &  0  \\
+    0  &  -\frac{1}{4}  &  0  &  \frac{1}{4}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{1}^{14} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  -\frac{1}{4}  &  -\frac{1}{4}i  &  0  \\
+    -\frac{1}{4}  &  \frac{1}{2}  &  0  &  -\frac{1}{4}i  \\
+    \frac{1}{4}i  &  0  &  \frac{1}{2}  &  -\frac{1}{4}  \\
+    0  &  \frac{1}{4}i  &  -\frac{1}{4}  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{1}^{15} = 
+    \begin{pmatrix}
+    \frac{3}{4}  &  -\frac{1}{4}  &  0  &  0  \\
+    -\frac{1}{4}  &  \frac{3}{4}  &  0  &  0  \\
+    0  &  0  &  \frac{1}{4}  &  -\frac{1}{4}  \\
+    0  &  0  &  -\frac{1}{4}  &  \frac{1}{4}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{1}^{16} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  \frac{1}{4}i  &  -\frac{1}{4}  &  0  \\
+    -\frac{1}{4}i  &  \frac{1}{2}  &  0  &  -\frac{1}{4}  \\
+    -\frac{1}{4}  &  0  &  \frac{1}{2}  &  \frac{1}{4}i  \\
+    0  &  -\frac{1}{4}  &  -\frac{1}{4}i  &  \frac{1}{2}  \\
+    \end{pmatrix}
+\end{align*}
+
+\newpage
+\begin{align*}
+    \Omega_{1}^{17} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  \frac{1}{4}i  &  \frac{1}{4}  \\
+    0  &  \frac{1}{2}  &  \frac{1}{4}  &  -\frac{1}{4}i  \\
+    -\frac{1}{4}i  &  \frac{1}{4}  &  \frac{1}{2}  &  0  \\
+    \frac{1}{4}  &  \frac{1}{4}i  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{1}^{18} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  -\frac{1}{4}i  &  \frac{1}{4}  \\
+    0  &  \frac{1}{2}  &  \frac{1}{4}  &  \frac{1}{4}i  \\
+    \frac{1}{4}i  &  \frac{1}{4}  &  \frac{1}{2}  &  0  \\
+    \frac{1}{4}  &  -\frac{1}{4}i  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{1}^{19} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  \frac{1}{4}i  &  0  &  \frac{1}{4}  \\
+    -\frac{1}{4}i  &  \frac{1}{2}  &  \frac{1}{4}  &  0  \\
+    0  &  \frac{1}{4}  &  \frac{1}{2}  &  -\frac{1}{4}i  \\
+    \frac{1}{4}  &  0  &  \frac{1}{4}i  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{1}^{20} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  -\frac{1}{4}i  &  0  &  \frac{1}{4}  \\
+    \frac{1}{4}i  &  \frac{1}{2}  &  \frac{1}{4}  &  0  \\
+    0  &  \frac{1}{4}  &  \frac{1}{2}  &  \frac{1}{4}i  \\
+    \frac{1}{4}  &  0  &  -\frac{1}{4}i  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{1}^{21} = 
+    \begin{pmatrix}
+    \frac{3}{4}  &  0  &  \frac{1}{4}i  &  0  \\
+    0  &  \frac{1}{4}  &  0  &  \frac{1}{4}i  \\
+    -\frac{1}{4}i  &  0  &  \frac{3}{4}  &  0  \\
+    0  &  -\frac{1}{4}i  &  0  &  \frac{1}{4}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{1}^{22} = 
+    \begin{pmatrix}
+    \frac{3}{4}  &  0  &  -\frac{1}{4}i  &  0  \\
+    0  &  \frac{1}{4}  &  0  &  -\frac{1}{4}i  \\
+    \frac{1}{4}i  &  0  &  \frac{3}{4}  &  0  \\
+    0  &  \frac{1}{4}i  &  0  &  \frac{1}{4}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{1}^{23} = 
+    \begin{pmatrix}
+    \frac{3}{4}  &  \frac{1}{4}i  &  0  &  0  \\
+    -\frac{1}{4}i  &  \frac{3}{4}  &  0  &  0  \\
+    0  &  0  &  \frac{1}{4}  &  \frac{1}{4}i  \\
+    0  &  0  &  -\frac{1}{4}i  &  \frac{1}{4}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{1}^{24} = 
+    \begin{pmatrix}
+    \frac{3}{4}  &  -\frac{1}{4}i  &  0  &  0  \\
+    \frac{1}{4}i  &  \frac{3}{4}  &  0  &  0  \\
+    0  &  0  &  \frac{1}{4}  &  -\frac{1}{4}i  \\
+    0  &  0  &  \frac{1}{4}i  &  \frac{1}{4}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{1}^{25} = 
+    \begin{pmatrix}
+    \frac{1}{4}  &  0  &  0  &  \frac{1}{4}  \\
+    0  &  \frac{3}{4}  &  \frac{1}{4}  &  0  \\
+    0  &  \frac{1}{4}  &  \frac{3}{4}  &  0  \\
+    \frac{1}{4}  &  0  &  0  &  \frac{1}{4}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{1}^{26} = 
+    \begin{pmatrix}
+    \frac{3}{4}  &  0  &  0  &  \frac{1}{4}  \\
+    0  &  \frac{1}{4}  &  \frac{1}{4}  &  0  \\
+    0  &  \frac{1}{4}  &  \frac{1}{4}  &  0  \\
+    \frac{1}{4}  &  0  &  0  &  \frac{3}{4}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{1}^{27} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  0  \\
+    0  &  0  &  0  &  0  \\
+    0  &  0  &  1  &  0  \\
+    0  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    &&
+    \Omega_{1}^{28} = 
+    \begin{pmatrix}
+    \frac{1}{2}  &  0  &  0  &  0  \\
+    0  &  1  &  0  &  0  \\
+    0  &  0  &  0  &  0  \\
+    0  &  0  &  0  &  \frac{1}{2}  \\
+    \end{pmatrix}
+    \\
+    \Omega_{1}^{29} = 
+    \begin{pmatrix}
+    1  &  0  &  0  &  0  \\
+    0  &  \frac{1}{2}  &  0  &  0  \\
+    0  &  0  &  \frac{1}{2}  &  0  \\
+    0  &  0  &  0  &  0  \\
+    \end{pmatrix}
+    &&
+\end{align*}
+% The Appendix is now a section. Replace all the sections by subsections and the subsections by subsubsections [which exist because this thesis is in a book format].
